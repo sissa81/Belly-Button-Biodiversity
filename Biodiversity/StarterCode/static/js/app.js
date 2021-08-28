@@ -63,28 +63,30 @@ function bubblechart() {
 };
 
 // Create Deafult Demographic Info
-function demographics() {    
-    Object.entries(samples).forEach(([key, value]) => console.log(`${key}: ${value}`));
+function demographics() {                
+    // Select panel h6 element
+    var panel = d3.select(".panel");
+    // Append default data to panel h6 element
+    Object.entries(data.metadata[0]).forEach(([key, value]) => panel.append("panel-body").text(`${key}: ${value} `));
     };
-}
 
-
-// This function is called when a dropdown menu item is selected
-function updatePlotly() {    
-    var dropdownMenu = d3.select("#selDataset");    
-    var dataset = dropdownMenu.property("value");
+// // // This function is called when a dropdown menu item is selected
+// function getData() {    
+//     var dropdownMenu = d3.select("#selDataset");    
+    
   
-    // Initialize x and y arrays
-    var x = [];
-    var y = [];
+//     // Initialize x and y arrays
+//     var x = [];
+//     var y = [];
   
      
-    // Note the extra brackets around 'x' and 'y'
-    Plotly.restyle("plot", "x", [x]);
-    Plotly.restyle("plot", "y", [y]);
-  }
+//     // Note the extra brackets around 'x' and 'y'
+//     Plotly.restyle("plot", "x", [x]);
+//     Plotly.restyle("plot", "y", [y]);
+//   };
   
   barchart();
   bubblechart();
   demographics();
+//   getData();
 });
