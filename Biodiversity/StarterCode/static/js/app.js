@@ -63,8 +63,9 @@ function bubblechart() {
 };
 
 // Create Deafult Demographic Info
-function demographics() {
-    var 
+function demographics() {    
+    Object.entries(samples).forEach(([key, value]) => console.log(`${key}: ${value}`));
+    };
 }
 
 
