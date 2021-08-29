@@ -72,22 +72,6 @@ function demographics() {
         panel.append("br")});
 };
 
-// // Populate dropdown menu with names
-// function getData() {    
-//     // Select the dropdown menu using getElementByID and assign to a variable
-//     var dropdownMenu = document.getElementById("selDataset");
-//     // Assign the value of the dropdown menu option to a variable
-//     var list = data.names;
-//     // Loop through list and append to dropdown
-//     for (var i = 0; i < list.length; i++) {
-//         var opt = list[i];
-//         var elem = document.createElement("option");
-//         elem.textContent = opt;
-//         elem.value = opt;
-//         dropdownMenu.appendChild(elem);
-//     };
-// };
-  
 // Populate dropdown menu with names
 function assignOptions() {
     var dropdownMenu = document.getElementById("selDataset");
@@ -98,16 +82,19 @@ function assignOptions() {
         dropdownMenu.appendChild(currentOption);
     };
 };
+
 // Update Charts When Dropdown Changes
-dropdownMenu.adEventListener('change', updateCharts)
+d3.selectAll("#selDataset").on("change", updateCharts);
 function updateCharts() {
-    barchart();
-    bubblechart();
+    var ddMenu = d3.select("#selDataset");
+    var selected = ddMenu.property("value");
+    // Make sure it's pulling a value
+    console.log(selected);    
 }
 
   barchart();
   bubblechart();
   demographics();
-  assignOptions();
+  assignOptions();  
   updateCharts();
 });
