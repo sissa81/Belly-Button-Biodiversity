@@ -1,5 +1,5 @@
 // read in samples.json
-const samples = "https://raw.githubusercontent.com/sissa81/Belly-Button-Biodiversity/main/Biodiversity/data/samples.json";
+const samples = "https://raw.githubusercontent.com/sissa81/Belly-Button-Biodiversity/main/samples.json";
 // const samples = "samples.json";
 
 // Fetch the JSON data and console log it
