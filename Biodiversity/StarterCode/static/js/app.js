@@ -33,7 +33,7 @@ function barchart () {
     };
   
     Plotly.newPlot('bar', bardata, barlayout);
-  };
+};
 
 
 // Create Default Bubble Chart
@@ -70,28 +70,44 @@ function demographics() {
     Object.entries(data.metadata[0]).forEach(([key, value]) => {
         panel.append("panel-body").text(`${key}: ${value}`)
         panel.append("br")});
-    };
+};
 
+// // Populate dropdown menu with names
+// function getData() {    
+//     // Select the dropdown menu using getElementByID and assign to a variable
+//     var dropdownMenu = document.getElementById("selDataset");
+//     // Assign the value of the dropdown menu option to a variable
+//     var list = data.names;
+//     // Loop through list and append to dropdown
+//     for (var i = 0; i < list.length; i++) {
+//         var opt = list[i];
+//         var elem = document.createElement("option");
+//         elem.textContent = opt;
+//         elem.value = opt;
+//         dropdownMenu.appendChild(elem);
+//     };
+// };
+  
 // Populate dropdown menu with names
-function getData() {    
-    var select = document.getElementById("selDataset");
-    var options = data.names;
-    for (var i = 0; i < options.length; i++) {
-        var opt = options[i];
-        var el = document.createElement("option");
-        el.textContent = opt;
-        el.value = opt;
-        select.appendChild(el);
+function assignOptions() {
+    var dropdownMenu = document.getElementById("selDataset");
+    var list = data.names;
+    for (var i = 0; i < list.length; i++) {
+        var currentOption = document.createElement("option");
+        currentOption.text = list[i];
+        dropdownMenu.appendChild(currentOption);
     };
+};
+// Update Charts When Dropdown Changes
+dropdownMenu.adEventListener('change', updateCharts)
+function updateCharts() {
+    barchart();
+    bubblechart();
+}
 
-
-  
-  
-
-  };
-  
   barchart();
   bubblechart();
   demographics();
-  getData();
+  assignOptions();
+  updateCharts();
 });
