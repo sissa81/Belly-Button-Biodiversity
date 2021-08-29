@@ -55,7 +55,7 @@ function bubblechart() {
             title: "OTU ID"
         },
         height: 600,
-        width: 1600,
+        width: 1400,
         showlegend: false
     };
 
@@ -72,17 +72,26 @@ function demographics() {
         panel.append("br")});
     };
 
-// This function is called when a dropdown menu item is selected
-// function getData() {    
-//     var dropdownMenu = d3.select("#selDataset");    
+// Populate dropdown menu with names
+function getData() {    
+    var select = document.getElementById("selDataset");
+    var options = data.names;
+    for (var i = 0; i < options.length; i++) {
+        var opt = options[i];
+        var el = document.createElement("option");
+        el.textContent = opt;
+        el.value = opt;
+        select.appendChild(el);
+    };
 
-    
+
+  
   
 
-//   };
+  };
   
   barchart();
   bubblechart();
   demographics();
-//   getData();
+  getData();
 });
