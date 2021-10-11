@@ -1,20 +1,23 @@
 // read in samples.json
-const samples = "samples.json";
+const samples = "https://raw.githubusercontent.com/sissa81/Belly-Button-Biodiversity/main/samples.json";
 // const samples = "samples.json";
 
 // Fetch the JSON data and console log it
 d3.json(samples).then(function(data) {
     console.log(data);
 
-
+    
 // Create Default Horizontal Bar Chart
-function barchart () {    
+function barchart (subject) { 
+    // Make sure correct is pulling
+    var subid = data.samples.filter(x => x.id == subject)
+    console.log(subid)
     var bardata = [{
-        x: data.samples[0]["sample_values"].slice(0,10).reverse(),
-        y: data.samples[0]["otu_ids"].slice(0,10).reverse(),
+        x: data.samples.filter(x => x.id == subject)[0]["sample_values"].slice(0,10).reverse(),
+        y: data.samples.filter(x => x.id == subject)[0]["otu_ids"].slice(0,10).reverse(),
         type: 'bar',
         orientation: 'h',
-        text: data.samples[0]["otu_labels"].slice(0,10).reverse(),
+        text: data.samples.filter(x => x.id == subject)[0]["otu_labels"].slice(0,10).reverse(),
         marker: {
             color: 'rgb(0,65,130)'
         }
@@ -37,15 +40,18 @@ function barchart () {
 
 
 // Create Default Bubble Chart
-function bubblechart() {
+function bubblechart(subject) {
+    // Make sure correct is pulling
+    var subid = data.samples.filter(x => x.id == subject)
+    console.log(subid)
     var bubbledata = [{
-        x: data.samples[0]["otu_ids"],
-        y: data.samples[0]["sample_values"],
-        text: data.samples[0]["otu_labels"],
+        x: data.samples.filter(x => x.id == subject)[0]["otu_ids"],
+        y: data.samples.filter(x => x.id == subject)[0]["sample_values"],
+        text: data.samples.filter(x => x.id == subject)[0]["otu_labels"],
         mode: 'markers',        
         marker: {
-            size: data.samples[0]["sample_values"],
-            color: data.samples[0]["otu_ids"]
+            size: data.samples.filter(x => x.id == subject)[0]["sample_values"],
+            color: data.samples.filter(x => x.id == subject)[0]["otu_ids"]
         }
     }];
 
@@ -63,11 +69,14 @@ function bubblechart() {
 };
 
 // Create Deafult Demographic Info
-function demographics() {                
+function demographics(subject) {            
+    // Make sure correct is pulling
+    var subid = data.samples.filter(x => x.id == subject)
+    console.log(subid)    
     // Select panel-body element
     var panel = d3.select(".panel-body");
     // Append default data to panel-body element
-    Object.entries(data.metadata[0]).forEach(([key, value]) => {
+    Object.entries(data.metadata.filter(x => x.id == subject)[0]).forEach(([key, value]) => {
         panel.append("panel-body").text(`${key}: ${value}`)
         panel.append("br")});
 };
@@ -90,11 +99,14 @@ function updateCharts() {
     var selected = ddMenu.property("value");
     // Make sure it's pulling a value
     console.log(selected);    
+    barchart(selected);
+    bubblechart(selected);
+    demographics(selected);
 }
 
-  barchart();
-  bubblechart();
-  demographics();
+  barchart(940);
+  bubblechart(940);
+  demographics(940);
   assignOptions();  
   updateCharts();
 });
